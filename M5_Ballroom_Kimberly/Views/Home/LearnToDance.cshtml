@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Learn To Dance";
+}
+
+<div class="text-center">
+    <h1 class="display-4"><b>Would you like to learn too?</b></h1>
+    <br />
+    <div>
+        <label for="hours">Number of hours needed:</label>
+        <input type="number" id="hours" min="0">
+        <span id="hours-error" style="color: red; display: none;">Please enter a positive number.</span>
+    </div>
+    <br />
+    <div>
+        <label for="hourly-rate">Hourly rate:</label>
+        <input type="text" id="hourly-rate" value="35" readonly>
+    </div>
+    <div>
+        <button class="btn btn-secondary btn-xl rounded-pill mt-5" id="calculate-btn">Calculate Total</button>
+    </div>
+    <br />
+    <div>
+        <label for="total">Total:</label>
+        <input type="text" id="total" readonly>
+    </div>
+    <br />
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index">Back To Home</a>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#calculate-btn").click(function () {
+                var hours = parseFloat($("#hours").val());
+                if (isNaN(hours) || hours <= 0) {
+                    $("#hours-error").show();
+                    return;
+                }
+                $("#hours-error").hide();
+                var hourlyRate = parseFloat($("#hourly-rate").val());
+                var total = hours * hourlyRate;
+                $("#total").val(total.toFixed(2));
+            });
+        });
+    </script>
+</div>
